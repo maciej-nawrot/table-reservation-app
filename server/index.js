@@ -1,0 +1,20 @@
+require('dotenv').config()
+const userRoutes = require("./routes/users")
+const authRoutes = require("./routes/auth")
+const reservationRoutes = require("./routes/reservations")
+const tableRoutes = require("./routes/tables")
+
+const express = require('express')
+const app = express()
+const cors = require('cors')
+app.use(express.json())
+app.use(cors())
+const port = process.env.PORT || 8080
+app.listen(port, () => console.log(`Nasłuchiwanie na porcie ${port}`))
+const connection = require('./db')
+connection()
+
+app.use("/api/users", userRoutes)
+app.use("/api/auth", authRoutes)
+app.use("/api/reservations", reservationRoutes)
+app.use("/api/tables", tableRoutes)
